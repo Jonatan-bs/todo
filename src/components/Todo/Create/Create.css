@@ -1,0 +1,71 @@
+#createTodo {
+  background: #fff;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 30px;
+}
+#createTodo .field textarea {
+  width: 100%;
+  border: 0;
+  background: #e7e7e7;
+  min-height: 90px;
+  min-width: 500px;
+}
+#createTodo .field {
+  padding: 10px 0;
+}
+#createTodo .field input {
+  width: 100%;
+}
+#createTodo .field label {
+  color: #9c9c9c;
+}
+
+.field .priority input[type="radio"] {
+  opacity: 0;
+  height: 0px;
+  position: fixed;
+}
+.field .priority label {
+  background: #000;
+  height: 40px;
+  width: 25%;
+  display: block;
+  cursor: pointer;
+}
+
+.field .priority {
+  display: flex;
+}
+
+#createTodo .priority label:nth-of-type(1) {
+  background: rgb(94, 94, 94);
+  opacity: 0.5;
+}
+#createTodo .priority label:nth-of-type(2) {
+  background: #503cff;
+  opacity: 0.5;
+}
+#createTodo .priority label:nth-of-type(3) {
+  background: #ff911b;
+  opacity: 0.5;
+}
+#createTodo .priority label:nth-of-type(4) {
+  background: #eb4225;
+  opacity: 0.5;
+}
+
+#createTodo .priority input[type="radio"]:nth-of-type(1):checked + label {
+  opacity: 1;
+}
+#createTodo .priority input[type="radio"]:nth-of-type(2):checked + label {
+  opacity: 1;
+}
+#createTodo .priority input[type="radio"]:nth-of-type(3):checked + label {
+  opacity: 1;
+}
+#createTodo .priority input[type="radio"]:nth-of-type(4):checked + label {
+  opacity: 1;
+}

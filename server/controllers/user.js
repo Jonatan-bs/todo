@@ -25,17 +25,11 @@ module.exports = {
       res.status(500).json({ success: false });
     }
   },
-  getSession: async (req, res, next) => {
-    res.status(201).json({ message: req.session });
-  },
+
   logout: (req, res, next) => {
     req.session.destroy(function(err) {
       if (err) res.status(500);
       res.status(201).json({ message: "logged out" });
     });
-  },
-  verify: (req, res, next) => {
-    // console.log(req.sessionID);
-    res.status(201).json(req.sessionID);
   }
 };

@@ -1,13 +1,64 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 20px;
+  background: #e7e7e7;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+li {
+  list-style: none;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+button {
+  padding: 10px;
+  background: #3c5ebe;
+  color: #fff;
+  border: 0;
+  cursor: pointer;
+  font-size: inherit;
+}
+button:hover {
+  background: #27418b;
+}
+
+input,
+textarea {
+  font-size: inherit;
+}
+input[type="text"] {
+  border: none;
+  position: relative;
+  border-bottom: 2px solid #333;
+  text-align: center;
+}
+
+.inputWbutton {
+  width: 100%;
+  display: flex;
+}
+.inputWbutton input {
+  width: 80%;
+}
+.inputWbutton button {
+  width: 20%;
 }

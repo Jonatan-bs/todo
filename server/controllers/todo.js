@@ -8,7 +8,9 @@ module.exports = {
     todo.title = req.body.title;
     todo.description = req.body.description;
     todo.start = req.body.start;
-    todo.deadline = req.body.deadline;
+    todo.deadlineDate = req.body.deadlineDate;
+    todo.deadlineTime = req.body.deadlineTime;
+    todo.priority = req.body.priority;
 
     try {
       const user = await User.findOne({ _id: req.session.user_id });

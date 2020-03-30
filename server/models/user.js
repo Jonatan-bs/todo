@@ -2,13 +2,17 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const Schema = mongoose.Schema;
 
-var Todo = new Schema({
-  title: { type: String, required: true },
-  description: { type: String, required: false },
-  start: { type: Date, required: true, default: Date.now },
-  deadline: { type: Date, required: false },
-  done: { type: Boolean, default: false }
-});
+var Todo = new Schema(
+  {
+    title: { type: String, required: true },
+    description: { type: String, required: false, default: "" },
+    priority: { type: Number, min: 0, max: 1, default: 0 },
+    deadlineDate: { type: Date, required: false },
+    deadlineTime: { type: String, required: false },
+    done: { type: Boolean, default: false }
+  },
+  { timestamps: true }
+);
 
 var List = new Schema({
   title: { type: String, required: true },
