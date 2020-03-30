@@ -4,9 +4,9 @@ const Schema = mongoose.Schema;
 
 var Todo = new Schema({
   title: { type: String, required: true },
-  description: { type: String, required: true },
-  start: { type: String, required: true },
-  deadline: { type: String, required: true },
+  description: { type: String, required: false },
+  start: { type: Date, required: true, default: Date.now },
+  deadline: { type: Date, required: false },
   done: { type: Boolean, default: false }
 });
 

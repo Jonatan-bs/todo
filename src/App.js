@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-// import cookie from "./cookieHandler";
 
 import "./App.css";
 
@@ -28,7 +27,6 @@ class App extends Component {
       .then(res => res.json())
       .then(res => {
         if (res.success) {
-          // cookie.createCookie("user_id", res.user._id, 9999);
           console.log(res);
         } else {
           console.log("wrong password or username");
