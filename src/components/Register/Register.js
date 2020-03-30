@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import "./Register.css";
 class Register extends Component {
   state = { email: "", password: "", firstname: "", lastname: "" };
 
@@ -32,7 +32,8 @@ class Register extends Component {
 
   render() {
     return (
-      <div id="register">
+      <div id="register" className="popup">
+        <h1>Register</h1>
         <label htmlFor="email">Email</label>
         <input
           type="email"

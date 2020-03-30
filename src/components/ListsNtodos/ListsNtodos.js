@@ -8,16 +8,18 @@ class ListsNtodos extends Component {
   state = {};
   render() {
     return (
-      <TodoCreate />
+      // <TodoCreate />
 
-      //   <div id="ListsNtodos">
-      //     <div id="list">
-      //       <List />
-      //     </div>
-      //     <div id="todo">
-      //       <Todo />
-      //     </div>
-      //   </div>
+      <div id="listsNtodos">
+        <div id="listWrap">
+          <div id="list">
+            <List />
+          </div>
+        </div>
+        <div id="todoWrap">
+          <Todo />
+        </div>
+      </div>
     );
   }
 }

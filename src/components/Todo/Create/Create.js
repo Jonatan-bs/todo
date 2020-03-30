@@ -28,7 +28,7 @@ class List extends Component {
   render() {
     return (
       <React.Fragment>
-        <div id="createTodo">
+        <div id="createTodo" className="popup">
           <div className="field">
             <label htmlFor="todoTitle">Title</label>
             <input

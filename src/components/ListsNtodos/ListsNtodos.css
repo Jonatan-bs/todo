@@ -1,3 +1,15 @@
-#ListsNtodos {
+#listsNtodos {
   display: flex;
+  width: 100%;
+}
+
+#listWrap {
+  width: 40%;
+  box-sizing: border-box;
+  padding: 60px;
+  position: relative;
+}
+
+#todoWrap {
+  width: 60%;
 }

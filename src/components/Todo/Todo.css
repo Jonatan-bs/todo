@@ -1,0 +1,12 @@
+#listUl li span img {
+  width: 15px;
+}
+
+#listUl li {
+  position: relative;
+}
+#listUl li span {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
