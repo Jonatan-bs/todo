@@ -78,5 +78,30 @@ input[type="password"]:active {
   top: 50%;
   transform: translate(-50%, -50%);
   padding: 30px;
-  max-width: 460px;
+  max-width: 500px;
+  margin: 0 50px;
+  width: 100%;
+  z-index: 50;
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #000000e6;
+  z-index: 10;
+}
+
+.priority0 {
+  background: grey;
+}
+.priority1 {
+  background: rgb(46, 68, 141);
+}
+.priority2 {
+  background: rgb(160, 106, 45);
+}
+.priority3 {
+  background: rgb(160, 33, 33);
 }

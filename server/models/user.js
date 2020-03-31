@@ -6,17 +6,18 @@ var Todo = new Schema(
   {
     title: { type: String, required: true },
     description: { type: String, required: false, default: "" },
-    priority: { type: Number, min: 0, max: 1, default: 0 },
-    deadlineDate: { type: Date, required: false },
+    priority: { type: Number, min: 0, max: 3, default: 0 },
+    deadlineDate: { type: Date, required: false, default: "" },
     deadlineTime: { type: String, required: false },
-    done: { type: Boolean, default: false }
+    done: { type: Boolean, default: false },
+    active: { type: Boolean, default: false }
   },
   { timestamps: true }
 );
 
 var List = new Schema({
   title: { type: String, required: true },
-  done: { type: Boolean, default: false },
+  active: { type: Boolean, default: true },
   todo: { type: [Todo] }
 });
 

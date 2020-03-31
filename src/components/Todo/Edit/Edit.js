@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./Create.css";
+import "./Edit.css";
 
 class TodoPopup extends Component {
   state = {
@@ -10,21 +10,6 @@ class TodoPopup extends Component {
       deadlineDate: "",
       deadlineTime: ""
     }
-  };
-
-  componentDidMount = () => {
-    if (!this.props.activeTodo) return;
-
-    let { activeTodo } = this.props;
-
-    let todo = {
-      title: activeTodo.title,
-      description: activeTodo.description,
-      priority: activeTodo.priority,
-      deadlineDate: activeTodo.deadlineDate ? activeTodo.deadlineDate : "",
-      deadlineTime: activeTodo.deadlineTime
-    };
-    this.setState({ todo });
   };
 
   getValue = e => {
@@ -41,47 +26,7 @@ class TodoPopup extends Component {
     todo.priority = Number(value);
     this.setState({ todo });
   };
-  updateTodo = () => {
-    const todo = this.state.todo;
-    const listID = this.props.listID;
-    const todoID = this.props.activeTodo._id;
-    fetch("http://localhost:4000/todo/update", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ todo, listID, todoID })
-    })
-      .then(res => res.json())
-      .then(res => {
-        console.log(res);
-        if (res.success) {
-          this.props.setTodos();
-          this.props.todoPop(false)();
-        }
-      })
-      .catch(err => console.log(err));
-  };
-  deleteTodo = () => {
-    const listID = this.props.listID;
-    const todoID = this.props.activeTodo._id;
-    fetch("http://localhost:4000/todo/delete", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ listID, todoID })
-    })
-      .then(res => res.json())
-      .then(res => {
-        console.log(res);
-        if (res.success) {
-          this.props.setTodos();
-          this.props.todoPop(false)();
-        }
-      })
-      .catch(err => console.log(err));
-  };
+
   addTodo = () => {
     const todo = this.state.todo;
     const listID = this.props.listID;
@@ -195,21 +140,9 @@ class TodoPopup extends Component {
               />
             </div>
           </div>
-          {this.props.action === "create" ? (
-            <button id="addTodo" onClick={this.addTodo}>
-              Add todo
-            </button>
-          ) : null}
-          {this.props.action === "edit" ? (
-            <React.Fragment>
-              <button id="editTodo" onClick={this.updateTodo}>
-                Update todo
-              </button>
-              <button id="deleteTodo" onClick={this.deleteTodo}>
-                Delete todo
-              </button>
-            </React.Fragment>
-          ) : null}
+          <button id="addList" onClick={this.addTodo}>
+            Add todo
+          </button>
         </div>
       </React.Fragment>
     );

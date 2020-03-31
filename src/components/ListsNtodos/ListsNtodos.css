@@ -12,4 +12,7 @@
 
 #todoWrap {
   width: 60%;
+  box-sizing: border-box;
+  padding: 60px;
+  position: relative;
 }
