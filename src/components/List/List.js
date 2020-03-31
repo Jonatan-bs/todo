@@ -55,27 +55,31 @@ class List extends Component {
           </button>
         </div>
         <ul id="listUl">
-          {this.props.lists.map((list, index) => {
-            return (
-              <li
-                key={index}
-                onClick={this.props.setListActive(index)}
-                className={this.props.activeListIndex ? "active" : null}
-              >
-                <p>{list.title}</p>
-                <span
-                  className="deActivate"
-                  onClick={this.deActivate(list._id, index)}
+          {!this.props.lists.length ? (
+            <p>Add your first list</p>
+          ) : (
+            this.props.lists.map((list, index) => {
+              return (
+                <li
+                  key={index}
+                  onClick={this.props.setListActive(index)}
+                  className={this.props.activeListIndex ? "active" : null}
                 >
-                  <img
+                  <p>{list.title}</p>
+                  <span
                     className="deActivate"
-                    src="icons/x.svg"
-                    alt="close icon"
-                  ></img>
-                </span>
-              </li>
-            );
-          })}
+                    onClick={this.deActivate(list._id, index)}
+                  >
+                    <img
+                      className="deActivate"
+                      src="icons/x.svg"
+                      alt="close icon"
+                    ></img>
+                  </span>
+                </li>
+              );
+            })
+          )}
         </ul>
       </React.Fragment>
     );

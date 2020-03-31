@@ -56,7 +56,8 @@ class TodoPopup extends Component {
       .then(res => {
         console.log(res);
         if (res.success) {
-          this.props.setTodos();
+          // this.props.setTodos();
+          this.props.getLists();
           this.props.todoPop(false)();
         }
       })
@@ -95,7 +96,8 @@ class TodoPopup extends Component {
       .then(res => res.json())
       .then(res => {
         if (res.success) {
-          this.props.setTodos();
+          // this.props.setTodos();
+          this.props.getLists();
           this.props.todoPop(false)();
         }
       })

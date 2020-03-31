@@ -35,7 +35,8 @@ module.exports = {
       // const user = await User.findOne({ _id: req.session.user_id });
       let user = await User.find({}).limit(1);
       user = user[0];
-      const list = user.list.find(x => x._id.toString() === listID);
+      // const list = user.list.find(x => x._id.toString() === listID);
+      const list = user.list.id(listID);
 
       res.status(201).json({ success: true, todo: list.todo });
     } catch (error) {
@@ -53,8 +54,11 @@ module.exports = {
       let user = await User.find({}).limit(1);
       user = user[0];
 
-      const list = user.list.find(x => x._id.toString() === listID);
-      const todo = list.todo.find(x => x._id.toString() === todoID);
+      const list = user.list.id(listID);
+      const todo = list.todo.id(todoID);
+
+      // const list = user.list.find(x => x._id.toString() === listID);
+      // const todo = list.todo.find(x => x._id.toString() === todoID);
 
       todo.done = true;
 
@@ -76,8 +80,8 @@ module.exports = {
       let user = await User.find({}).limit(1);
       user = user[0];
 
-      const list = user.list.find(x => x._id.toString() === listID);
-      let todo = list.todo.find(x => x._id.toString() === todoID);
+      const list = user.list.id(listID);
+      const todo = list.todo.id(todoID);
 
       todo.title = newTodo.title;
       todo.deadlineDate = newTodo.deadlineDate;
@@ -102,10 +106,13 @@ module.exports = {
       let user = await User.find({}).limit(1);
       user = user[0];
 
-      let list = user.list.find(x => x._id.toString() === listID);
-      const todoIndex = list.todo.findIndex(x => x._id.toString() === todoID);
+      const list = user.list.id(listID);
+      list.todo.id(todoID).remove();
 
-      list.todo.splice(todoIndex, 1);
+      // let list = user.list.find(x => x._id.toString() === listID);
+      // const todoIndex = list.todo.findIndex(x => x._id.toString() === todoID);
+
+      // list.todo.splice(todoIndex, 1);
 
       await user.save();
       res.status(201).json({ success: true, todo: list.todo });

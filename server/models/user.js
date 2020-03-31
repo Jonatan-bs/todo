@@ -15,19 +15,25 @@ var Todo = new Schema(
   { timestamps: true }
 );
 
-var List = new Schema({
-  title: { type: String, required: true },
-  active: { type: Boolean, default: true },
-  todo: { type: [Todo] }
-});
+var List = new Schema(
+  {
+    title: { type: String, required: true },
+    active: { type: Boolean, default: true },
+    todo: { type: [Todo] }
+  },
+  { timestamps: true }
+);
 
-var UserSchema = new Schema({
-  firstname: { type: String, required: true },
-  lastname: { type: String, required: true },
-  email: { type: String, unique: true, required: true },
-  password: { type: String, required: true },
-  list: { type: [List] }
-});
+var UserSchema = new Schema(
+  {
+    firstname: { type: String, required: true },
+    lastname: { type: String, required: true },
+    email: { type: String, unique: true, required: true },
+    password: { type: String, required: true },
+    list: { type: [List] }
+  },
+  { timestamps: true }
+);
 
 UserSchema.pre("save", function(next) {
   if (!this.isModified("password")) {

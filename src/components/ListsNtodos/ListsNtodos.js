@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./ListsNtodos.css";
 import List from "./../List/List";
 import Todo from "./../Todo/Todo";
+import handler from "./../handler";
 
 let debounce = (func, delay) => {
   let debounceTimer;
@@ -26,7 +27,7 @@ class ListsNtodos extends Component {
     this.getLists();
   }
 
-  getLists = () => {
+  getLists = async () => {
     fetch("http://localhost:4000/list/retrieve", {
       method: "post"
     })
@@ -35,7 +36,11 @@ class ListsNtodos extends Component {
         if (res.list) {
           let lists = res.list.filter(list => list.active === true);
           let inactiveLists = res.list.filter(list => list.active === false);
-          this.setState({ lists, inactiveLists });
+          let activeListIndex = lists.length ? 0 : null;
+
+          handler.sort(lists, "updatedAt", "desc");
+
+          this.setState({ lists, inactiveLists, activeListIndex });
         } else {
           console.log("Server error");
         }
@@ -62,7 +67,7 @@ class ListsNtodos extends Component {
     })
       .then(res => res.json())
       .then(res => {
-        console.log(res);
+        this.getLists();
       })
       .catch(err => console.log(err));
   }, 400);
@@ -99,6 +104,7 @@ class ListsNtodos extends Component {
               setNewListValue={this.setNewListValue}
               activeList={this.state.lists[this.state.activeListIndex]}
               setNewListTitle={this.setNewListTitle}
+              getLists={this.getLists}
             />
           </div>
         </div>

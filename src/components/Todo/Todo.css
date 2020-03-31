@@ -26,6 +26,16 @@
   z-index: 1;
   border-radius: 100%;
 }
+
+.done input:checked ~ label {
+  border: 5px solid #2bc92a;
+  background: #2ac92a;
+}
+
+.done input:checked {
+  opacity: 1;
+}
+
 .done input {
   opacity: 0;
   position: absolute;
