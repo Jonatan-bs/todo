@@ -49,37 +49,41 @@ class login extends Component {
 
   render() {
     return (
-      <div id="login" className="popup">
-        <div className={this.state.message ? "message active" : "message"}>
-          Wrong username or password
-        </div>
+      <React.Fragment>
+        <div class="overlay2"></div>
 
-        <h2>Login</h2>
-        <div className="field">
-          <label htmlFor="email">Email</label>
-          <input
-            type="text"
-            id="email"
-            name="email"
-            onChange={this.setValue}
-            value={this.state.email}
-          />
+        <div id="login" className="popup">
+          <div className={this.state.message ? "message active" : "message"}>
+            Wrong username or password
+          </div>
+
+          <h2>Login</h2>
+          <div className="field">
+            <label htmlFor="email">Email</label>
+            <input
+              type="text"
+              id="email"
+              name="email"
+              onChange={this.setValue}
+              value={this.state.email}
+            />
+          </div>
+          <div className="field">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              onChange={this.setValue}
+              value={this.state.password}
+            />
+          </div>
+          <button onClick={this.login}>Log in</button>
+          <Link to="/register">
+            <p className="secondButton">Register</p>
+          </Link>
         </div>
-        <div className="field">
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            onChange={this.setValue}
-            value={this.state.password}
-          />
-        </div>
-        <button onClick={this.login}>Log in</button>
-        <Link to="/register">
-          <p className="secondButton">Register</p>
-        </Link>
-      </div>
+      </React.Fragment>
     );
   }
 }

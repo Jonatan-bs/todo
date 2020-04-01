@@ -181,6 +181,16 @@ p.secondButton {
   }
 }
 
+.overlay2 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #000000e6;
+  z-index: 10;
+}
+
 .priority0 {
   background: grey;
 }

@@ -50,56 +50,59 @@ class Register extends Component {
 
   render() {
     return (
-      <div id="register" className="popup">
-        <div className={this.state.message ? "message active" : "message"}>
-          User already exist
+      <React.Fragment>
+        <div class="overlay2"></div>
+        <div id="register" className="popup">
+          <div className={this.state.message ? "message active" : "message"}>
+            User already exist
+          </div>
+
+          <h1>Register</h1>
+          <label htmlFor="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            onChange={this.setValue}
+            value={this.state.email}
+            required
+          />
+
+          <label htmlFor="firstname">firstname</label>
+          <input
+            type="text"
+            id="firstname"
+            name="firstname"
+            onChange={this.setValue}
+            value={this.state.firstname}
+            required
+          />
+
+          <label htmlFor="lastname">lastname</label>
+          <input
+            type="text"
+            id="lastname"
+            name="lastname"
+            onChange={this.setValue}
+            value={this.state.lastname}
+            required
+          />
+
+          <label htmlFor="password">password</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            onChange={this.setValue}
+            value={this.state.password}
+            required
+          />
+          <button onClick={this.register}>Register</button>
+          <Link to="/login">
+            <p className="secondButton">Login</p>
+          </Link>
         </div>
-
-        <h1>Register</h1>
-        <label htmlFor="email">Email</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          onChange={this.setValue}
-          value={this.state.email}
-          required
-        />
-
-        <label htmlFor="firstname">firstname</label>
-        <input
-          type="text"
-          id="firstname"
-          name="firstname"
-          onChange={this.setValue}
-          value={this.state.firstname}
-          required
-        />
-
-        <label htmlFor="lastname">lastname</label>
-        <input
-          type="text"
-          id="lastname"
-          name="lastname"
-          onChange={this.setValue}
-          value={this.state.lastname}
-          required
-        />
-
-        <label htmlFor="password">password</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          onChange={this.setValue}
-          value={this.state.password}
-          required
-        />
-        <button onClick={this.register}>Register</button>
-        <Link to="/login">
-          <p className="secondButton">Login</p>
-        </Link>
-      </div>
+      </React.Fragment>
     );
   }
 }
