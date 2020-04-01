@@ -3,6 +3,45 @@ import "./Todo.css";
 import TodoEditor from "./Editor/Editor";
 import handler from "./../handler";
 
+class Todos extends Component {
+  render() {
+    return this.props.todos.map((todo, index) => {
+      return (
+        <React.Fragment key={index}>
+          <p className="updateDate">
+            {"Updated: " + handler.formatDate(todo.updatedAt)}
+          </p>
+          <li key={index} onClick={this.props.todoPop("edit", todo)}>
+            <div className="done">
+              <input
+                className="nopop"
+                id="done"
+                type="checkbox"
+                checked={todo.done}
+                readOnly
+              />
+              <label
+                className="nopop"
+                htmlFor="done"
+                onClick={this.props.doneEvent(todo._id)}
+              ></label>
+            </div>
+            <span className={"priority priority" + todo.priority}></span>
+            <div className="content">
+              <h3 className="title">{todo.title}</h3>
+              <p className="description">{todo.description}</p>
+            </div>
+            <div className="deadline">
+              <p className="date">{handler.formatDate(todo.deadlineDate)}</p>
+              <p className="time">{todo.deadlineTime}</p>
+            </div>
+          </li>
+        </React.Fragment>
+      );
+    });
+  }
+}
+
 class Todo extends Component {
   state = { todoPop: false, todos: [], activeTodo: null };
 
@@ -133,42 +172,6 @@ class Todo extends Component {
   //     );
   //   });
   // };
-  Todos = () => {
-    return this.state.todos.map((todo, index) => {
-      return (
-        <React.Fragment>
-          <p className="updateDate">
-            {"Updated: " + handler.formatDate(todo.updatedAt)}
-          </p>
-          <li key={index} onClick={this.todoPop("edit", todo)}>
-            <div className="done">
-              <input
-                className="nopop"
-                id="done"
-                type="checkbox"
-                checked={todo.done}
-                readOnly
-              />
-              <label
-                className="nopop"
-                htmlFor="done"
-                onClick={this.doneEvent(todo._id)}
-              ></label>
-            </div>
-            <span className={"priority priority" + todo.priority}></span>
-            <div className="content">
-              <h3 className="title">{todo.title}</h3>
-              <p className="description">{todo.description}</p>
-            </div>
-            <div className="deadline">
-              <p className="date">{handler.formatDate(todo.deadlineDate)}</p>
-              <p className="time">{todo.deadlineTime}</p>
-            </div>
-          </li>
-        </React.Fragment>
-      );
-    });
-  };
 
   render = () => {
     return (
@@ -187,7 +190,11 @@ class Todo extends Component {
         </button>
         <ul id="todoUl">
           {this.state.todos.length > 0 ? (
-            <this.Todos />
+            <Todos
+              todos={this.state.todos}
+              todoPop={this.todoPop}
+              doneEvent={this.doneEvent}
+            />
           ) : (
             <p>Add your first Todo</p>
           )}

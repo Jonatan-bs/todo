@@ -17,7 +17,7 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "build")));
+app.use(express.static(path.join(__dirname, "./../build")));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -30,16 +30,12 @@ app.use(
   })
 );
 
-// This middleware will check if user's cookie is still saved in browser and user is not set, then automatically log the user out.
-// This usually happens when you stop your express server after login, your cookie still remains saved in the browser.
-// app.use((req, res, next) => {
-//   if (req.cookies.user_id && !req.session.user) {
-//     res.clearCookie("user_id");
-//   }
-//   next();
-// });
-
 app.use("/", apiRouter);
+
+// Handles any requests that don't match the ones above
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname + "./../build/index.html"));
+});
 
 mongoose.connect("mongodb://localhost:27017/todo", {
   useNewUrlParser: true,

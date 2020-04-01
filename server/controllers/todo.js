@@ -44,16 +44,12 @@ module.exports = {
     const todoID = req.body.todoID;
 
     try {
-      // const user = await User.findOne({ _id: req.session.user_id });
-      // CustomerModel.update({_id: job.customer}, {$pull : {jobs : job._id}}, ...
+      const user = await User.findOne({ _id: req.session.user_id });
 
-      let user = await User.find({}).limit(1);
-      user = user[0];
+      // let user = await User.find({}).limit(1);
+      // user = user[0];
 
       const todo = user.todo.id(todoID);
-
-      // const list = user.list.find(x => x._id.toString() === listID);
-      // const todo = list.todo.find(x => x._id.toString() === todoID);
 
       todo.done = !todo.done;
 
@@ -68,11 +64,10 @@ module.exports = {
     const newTodo = req.body.todo;
 
     try {
-      // const user = await User.findOne({ _id: req.session.user_id });
-      // CustomerModel.update({_id: job.customer}, {$pull : {jobs : job._id}}, ...
+      const user = await User.findOne({ _id: req.session.user_id });
 
-      let user = await User.find({}).limit(1);
-      user = user[0];
+      // let user = await User.find({}).limit(1);
+      // user = user[0];
 
       const todo = user.todo.id(todoID);
 
@@ -92,11 +87,10 @@ module.exports = {
     const todoID = req.body.todoID;
 
     try {
-      // const user = await User.findOne({ _id: req.session.user_id });
-      // CustomerModel.update({_id: job.customer}, {$pull : {jobs : job._id}}, ...
+      const user = await User.findOne({ _id: req.session.user_id });
 
-      let user = await User.find({}).limit(1);
-      user = user[0];
+      // let user = await User.find({}).limit(1);
+      // user = user[0];
 
       user.todo.id(todoID).remove();
       await user.save();

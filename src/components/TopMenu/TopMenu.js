@@ -12,10 +12,10 @@ class TopMenu extends Component {
       })
       .then(res => {
         console.log(res);
+        this.props.setAuth(false);
       })
       .catch(err => console.log(err));
   };
-
   render = () => {
     return (
       <div id="topMenu">

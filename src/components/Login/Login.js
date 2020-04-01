@@ -23,8 +23,12 @@ class login extends Component {
     })
       .then(res => res.json())
       .then(res => {
-        if (res.success) {
-          console.log(res);
+        if (res.auth) {
+          this.props.updateState({
+            auth: true,
+            firstname: res.user.firstname,
+            todos: res.user.todo
+          });
         } else {
           console.log("wrong password or username");
         }

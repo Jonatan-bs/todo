@@ -3,8 +3,6 @@ import React, { Component } from "react";
 import "./App.css";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
-import CreateTodo from "./components/Todo/Editor/Editor";
-import ListsNtodos from "./components/ListsNtodos/ListsNtodos";
 import TopMenu from "./components/TopMenu/TopMenu";
 import Todo from "./components/Todo/Todo";
 import {
@@ -19,17 +17,21 @@ class App extends Component {
   state = { auth: "notset" };
 
   setAuth = state => {
-    this.setState({ auth: state, user: {}, todos: [] });
+    this.setState({ auth: state, todos: [], firstname: "" });
   };
   componentDidMount() {
     fetch("http://localhost:4000/user/auth", { method: "post" })
       .then(res => res.json())
       .then(res => {
-        this.setState({
-          firstname: res.user.firstname,
-          todos: res.user.todo,
-          auth: res.auth
-        });
+        let auth = res.auth;
+        let firstname = "";
+        let todos = [];
+        if (res.user) {
+          firstname = res.user.firstname;
+          todos = res.user.todo;
+        }
+
+        this.setState({ auth, firstname, todos });
       })
       .catch(err => console.log(err));
   }
@@ -38,7 +40,10 @@ class App extends Component {
     return (
       <React.Fragment>
         <header>
-          <TopMenu firstname={this.state.firstname} />
+          <TopMenu
+            firstname={this.state.firstname}
+            setAuth={this.setAuth.bind(this)}
+          />
         </header>
         <section>
           <Todo todos={this.state.todos} setTodos={this.setTodos.bind(this)} />
@@ -46,10 +51,16 @@ class App extends Component {
       </React.Fragment>
     );
   };
-
+  setName = firstname => {
+    this.setState({ firstname: firstname });
+  };
+  updateState = obj => {
+    this.setState(obj);
+  };
   setTodos = newTodos => {
     handler.sort(newTodos, "updatedAt", "desc");
     handler.sort(newTodos, "done", "asc");
+    console.log("222", this);
     this.setState({ todos: newTodos });
   };
 
@@ -59,10 +70,16 @@ class App extends Component {
     ) : (
       <Router>
         <Switch>
-          {/* <Route
+          <Route
             exact
             path="/login"
-            render={() => (this.state.auth ? <Redirect to="/" /> : <Login />)}
+            render={() =>
+              this.state.auth ? (
+                <Redirect to="/" />
+              ) : (
+                <Login updateState={this.updateState.bind(this)} />
+              )
+            }
           />
           <Route
             exact
@@ -77,9 +94,9 @@ class App extends Component {
             render={() =>
               this.state.auth ? <this.MainPage /> : <Redirect to="/login" />
             }
-          /> */}
+          />
 
-          <this.MainPage />
+          {/* <this.MainPage /> */}
 
           <Route component={this.MainPage} />
         </Switch>
