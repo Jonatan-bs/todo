@@ -28,30 +28,50 @@ module.exports = {
       res.status(500).send({ success: false, error });
     }
   },
-  retrieve: async (req, res, next) => {
+  // retrieve: async (req, res, next) => {
+  //   try {
+  //     const user = await User.findOne({ _id: req.session.user_id });
+  //     // let user = await User.find({}).limit(1);
+  //     // user = user[0];
+
+  //     res.status(201).json({ success: true, todo: user.todo });
+  //   } catch (error) {
+  //     res.status(500).send({ success: false, message: error });
+  //   }
+  // },
+  done: async (req, res, next) => {
+    const todoID = req.body.todoID;
+
     try {
       // const user = await User.findOne({ _id: req.session.user_id });
+
       let user = await User.find({}).limit(1);
       user = user[0];
-      // const list = user.list.find(x => x._id.toString() === listID);
 
+      const todo = user.todo.id(todoID);
+
+      todo.done = !todo.done;
+
+      await user.save();
       res.status(201).json({ success: true, todo: user.todo });
     } catch (error) {
       res.status(500).send({ success: false, message: error });
     }
   },
-  done: async (req, res, next) => {
+  drop: async (req, res, next) => {
     const todoID = req.body.todoID;
-
+    console.log("gfjhgfjgh");
     try {
-      const user = await User.findOne({ _id: req.session.user_id });
+      // const user = await User.findOne({ _id: req.session.user_id });
 
-      // let user = await User.find({}).limit(1);
-      // user = user[0];
+      let user = await User.find({}).limit(1);
+      user = user[0];
 
       const todo = user.todo.id(todoID);
-
-      todo.done = !todo.done;
+      if (todo.dropped) {
+        todo.done = false;
+      }
+      todo.dropped = !todo.dropped;
 
       await user.save();
       res.status(201).json({ success: true, todo: user.todo });
@@ -64,10 +84,10 @@ module.exports = {
     const newTodo = req.body.todo;
 
     try {
-      const user = await User.findOne({ _id: req.session.user_id });
+      // const user = await User.findOne({ _id: req.session.user_id });
 
-      // let user = await User.find({}).limit(1);
-      // user = user[0];
+      let user = await User.find({}).limit(1);
+      user = user[0];
 
       const todo = user.todo.id(todoID);
 
@@ -87,10 +107,10 @@ module.exports = {
     const todoID = req.body.todoID;
 
     try {
-      const user = await User.findOne({ _id: req.session.user_id });
+      // const user = await User.findOne({ _id: req.session.user_id });
 
-      // let user = await User.find({}).limit(1);
-      // user = user[0];
+      let user = await User.find({}).limit(1);
+      user = user[0];
 
       user.todo.id(todoID).remove();
       await user.save();

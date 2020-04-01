@@ -1,5 +1,11 @@
 #topMenu {
   width: 100%;
-  background: #222;
+  background: none;
   text-align: right;
+}
+#topMenu p {
+  padding-right: 30px;
+  padding-left: 30px;
+  cursor: pointer;
+  display: inline-block;
 }

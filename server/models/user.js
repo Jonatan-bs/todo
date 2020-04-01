@@ -8,6 +8,7 @@ var Todo = new Schema(
     description: { type: String, required: false, default: "" },
     priority: { type: Number, min: 0, max: 3, default: 0 },
     deadlineDate: { type: Date, required: false, default: "" },
+    dropped: { type: Boolean, default: false },
     deadlineTime: { type: String, required: false },
     startDate: { type: Date, required: false, default: Date.now },
     done: { type: Boolean, default: false },

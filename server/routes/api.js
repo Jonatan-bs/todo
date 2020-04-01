@@ -11,9 +11,10 @@ router.post("/user/auth", userCtrl.auth);
 
 // TODO
 router.post("/todo/create", todoCtrl.create);
-router.post("/todo/retrieve", todoCtrl.retrieve);
+// router.post("/todo/retrieve", todoCtrl.retrieve);
 router.post("/todo/done", todoCtrl.done);
 router.post("/todo/update", todoCtrl.update);
 router.post("/todo/delete", todoCtrl.delete);
+router.post("/todo/drop", todoCtrl.drop);
 
 module.exports = router;

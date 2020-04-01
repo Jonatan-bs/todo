@@ -2,16 +2,26 @@ import React, { Component } from "react";
 import "./Todo.css";
 import TodoEditor from "./Editor/Editor";
 import handler from "./../handler";
+import cross from "./../../icons/x.svg";
 
 class Todos extends Component {
   render() {
-    return this.props.todos.map((todo, index) => {
+    return this.props.type.map((todo, index) => {
       return (
         <React.Fragment key={index}>
           <p className="updateDate">
-            {"Updated: " + handler.formatDate(todo.updatedAt)}
+            {this.props.changePrefix +
+              ": " +
+              handler.formatDate(todo.updatedAt)}
           </p>
-          <li key={index} onClick={this.props.todoPop("edit", todo)}>
+          <li
+            key={index}
+            onClick={
+              this.props.changePrefix === "Updated"
+                ? this.props.todoPop("edit", todo)
+                : null
+            }
+          >
             <div className="done">
               <input
                 className="nopop"
@@ -24,6 +34,20 @@ class Todos extends Component {
                 className="nopop"
                 htmlFor="done"
                 onClick={this.props.doneEvent(todo._id)}
+              ></label>
+            </div>
+            <div className="drop">
+              <input
+                className="nopop"
+                id="done"
+                type="checkbox"
+                checked={todo.done}
+                readOnly
+              />
+              <label
+                className="nopop"
+                htmlFor="drop"
+                onClick={this.props.dropEvent(todo._id)}
               ></label>
             </div>
             <span className={"priority priority" + todo.priority}></span>
@@ -43,57 +67,14 @@ class Todos extends Component {
 }
 
 class Todo extends Component {
-  state = { todoPop: false, todos: [], activeTodo: null };
-
-  // getAcvtiveList = attr => {
-  //   let index = this.props.activeListIndex;
-  //   if (!index && index !== 0) return false;
-
-  //   switch (attr) {
-  //     case "id":
-  //       return this.props.lists[index]._id;
-  //     case "title":
-  //       return this.props.lists[index].title;
-  //     default:
-  //       return false;
-  //   }
-  // };
-
-  // setTodos = () => {
-  //   const listID = this.getAcvtiveList("id");
-  //   if (!listID) return;
-  //   fetch("http://localhost:4000/todo/retrieve", {
-  //     method: "post",
-  //     headers: {
-  //       "Content-Type": "application/json"
-  //     },
-  //     body: JSON.stringify({ listID })
-  //   })
-  //     .then(res => res.json())
-  //     .then(res => {
-  //       if (res.todo) {
-  //         res.todo.forEach(todo => {
-  //           if (todo.deadlineDate) {
-  //             let dateObj = new Date(todo.deadlineDate);
-  //             var d = dateObj.getDate();
-  //             var m = dateObj.getMonth() + 1;
-  //             var y = dateObj.getFullYear();
-  //             todo.deadlineDate = d + "/" + m + "/" + y;
-  //           }
-  //         });
-  //         let todos = res.todo.filter(todo => todo.done === false);
-  //         let inactiveTodos = res.todo.filter(todo => todo.done === true);
-
-  //         let allTodos = res.todo;
-  //         handler.sort(allTodos, "done", "asc");
-
-  //         this.setState({ todos, inactiveTodos, allTodos });
-  //       } else {
-  //         console.log("Server error");
-  //       }
-  //     })
-  //     .catch(err => console.log(err));
-  // };
+  state = {
+    todoPop: false,
+    todos: [],
+    activeTodo: null,
+    active: [],
+    dropped: [],
+    done: []
+  };
 
   doneEvent = todoID => {
     return e => {
@@ -113,12 +94,40 @@ class Todo extends Component {
         .catch(err => console.log(err));
     };
   };
+
+  dropEvent = todoID => {
+    return e => {
+      if (e.target !== e.currentTarget) return;
+
+      fetch("http://localhost:4000/todo/drop", {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ todoID })
+      })
+        .then(res => res.json())
+        .then(res => {
+          this.props.setTodos(res.todo);
+        })
+        .catch(err => console.log(err));
+    };
+  };
   componentDidMount() {
-    this.setState({ todos: this.props.todos });
+    let { todos } = this.props;
+    let active = todos.filter(x => x.done === false && x.dropped === false);
+    let dropped = todos.filter(x => x.dropped);
+    let done = todos.filter(x => x.done);
+
+    this.setState({ todos, done, dropped, active });
   }
   componentDidUpdate = prevProps => {
     if (prevProps === this.props) return;
-    this.setState({ todos: this.props.todos });
+    let { todos } = this.props;
+    let active = todos.filter(x => x.done === false && x.dropped === false);
+    let dropped = todos.filter(x => x.dropped);
+    let done = todos.filter(x => x.done);
+    this.setState({ todos, done, dropped, active });
   };
 
   todoPop = (show, todo) => {
@@ -128,50 +137,6 @@ class Todo extends Component {
       else this.setState({ todoPop: show, activeTodo: todo });
     };
   };
-
-  // ActiveTodos = () => {
-  //   return this.state.todos.map((todo, index) => {
-  //     return (
-  //       <li key={index} onClick={this.todoPop("edit", todo)}>
-  //         <div className="done" onClick={this.doneEvent(todo._id)}>
-  //           <input className="nopop" id="done" type="checkbox" />
-  //           <label className="nopop" htmlFor="done"></label>
-  //         </div>
-  //         <span className={"priority priority" + todo.priority}></span>
-  //         <div className="content">
-  //           <p className="title">{todo.title}</p>
-  //           <p className="description">{todo.description}</p>
-  //         </div>
-  //         <div className="deadline">
-  //           <p className="date">{todo.deadlineDate}</p>
-  //           <p className="time">{todo.deadlineTime}</p>
-  //         </div>
-  //       </li>
-  //     );
-  //   });
-  // };
-
-  // InctiveTodos = () => {
-  //   return this.state.inactiveTodos.map((todo, index) => {
-  //     return (
-  //       <li key={index} onClick={this.todoPop("edit", todo)}>
-  //         <div className="done" onClick={this.doneEvent(todo._id)}>
-  //           <input className="nopop" id="done" type="checkbox" defaultChecked />
-  //           <label className="nopop" htmlFor="done"></label>
-  //         </div>
-  //         <span className={"priority priority" + todo.priority}></span>
-  //         <div className="content">
-  //           <p className="title">{todo.title}</p>
-  //           <p className="description">{todo.description}</p>
-  //         </div>
-  //         <div className="deadline">
-  //           <p className="date">{todo.deadlineDate}</p>
-  //           <p className="time">{todo.deadlineTime}</p>
-  //         </div>
-  //       </li>
-  //     );
-  //   });
-  // };
 
   render = () => {
     return (
@@ -185,20 +150,55 @@ class Todo extends Component {
           />
         ) : null}
 
-        <button id="addTodo" onClick={this.todoPop("create")}>
-          Add todo
-        </button>
-        <ul id="todoUl">
-          {this.state.todos.length > 0 ? (
-            <Todos
-              todos={this.state.todos}
-              todoPop={this.todoPop}
-              doneEvent={this.doneEvent}
-            />
-          ) : (
-            <p>Add your first Todo</p>
-          )}
-        </ul>
+        <div id="addTodo" onClick={this.todoPop("create")}>
+          <img src={require("./../../icons/x.svg")} alt="Add todo"></img>
+        </div>
+
+        {this.state.todos.length > 0 ? (
+          <div id="todoWrap">
+            {this.state.active.length > 0 ? (
+              <div className="activeTodos todoSection">
+                <ul className="todoUl">
+                  <Todos
+                    type={this.state.active}
+                    todoPop={this.todoPop}
+                    doneEvent={this.doneEvent}
+                    dropEvent={this.dropEvent}
+                    changePrefix="Updated"
+                  />
+                </ul>
+              </div>
+            ) : null}
+            {this.state.done.length > 0 ? (
+              <div className="doneTodos todoSection">
+                <ul className="todoUl">
+                  <Todos
+                    type={this.state.done}
+                    todoPop={this.todoPop}
+                    doneEvent={this.doneEvent}
+                    dropEvent={this.dropEvent}
+                    changePrefix="Done"
+                  />
+                </ul>
+              </div>
+            ) : null}
+            {this.state.dropped.length > 0 ? (
+              <div className="droppedTodos todoSection">
+                <ul className="todoUl">
+                  <Todos
+                    type={this.state.dropped}
+                    todoPop={this.todoPop}
+                    doneEvent={this.doneEvent}
+                    dropEvent={this.dropEvent}
+                    changePrefix="Dropped"
+                  />
+                </ul>
+              </div>
+            ) : null}
+          </div>
+        ) : (
+          <p>Add your first Todo</p>
+        )}
       </React.Fragment>
     );
   };

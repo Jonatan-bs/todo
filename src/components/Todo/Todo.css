@@ -1,10 +1,18 @@
-#todoUl {
+#todoWrap {
+  display: flex;
+}
+
+.todoSection {
+  width: 100%;
+}
+
+.todoUl {
   width: 90%;
   max-width: 650px;
   margin: 0 auto;
 }
 
-#todoUl li {
+.todoUl li {
   background: #fff;
   display: flex;
   flex-wrap: wrap;
@@ -14,8 +22,11 @@
   border-radius: 10px;
   overflow: inherit;
   margin-bottom: 10px;
-  cursor: pointer;
   margin-left: 50px;
+  box-shadow: 3px 3px 6px #222222ab;
+}
+.activeTodos .todoUl li {
+  cursor: pointer;
 }
 
 .done label {
@@ -82,4 +93,20 @@ button#addTodo {
   text-align: right;
   color: #939393;
   margin: 4px;
+}
+div#addTodo {
+  text-align: center;
+}
+div#addTodo img:hover {
+  transform: scale(1.1) rotate(45deg);
+  border: 8px solid #3a8b57;
+}
+div#addTodo img {
+  border: 8px solid #000000;
+  padding: 6px;
+  transform: rotate(45deg);
+  cursor: pointer;
+  border-radius: 100%;
+  width: 40px;
+  transition: all 0.2s ease;
 }
