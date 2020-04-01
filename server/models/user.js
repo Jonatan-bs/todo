@@ -9,17 +9,9 @@ var Todo = new Schema(
     priority: { type: Number, min: 0, max: 3, default: 0 },
     deadlineDate: { type: Date, required: false, default: "" },
     deadlineTime: { type: String, required: false },
+    startDate: { type: Date, required: false, default: Date.now },
     done: { type: Boolean, default: false },
     active: { type: Boolean, default: false }
-  },
-  { timestamps: true }
-);
-
-var List = new Schema(
-  {
-    title: { type: String, required: true },
-    active: { type: Boolean, default: true },
-    todo: { type: [Todo] }
   },
   { timestamps: true }
 );
@@ -30,7 +22,7 @@ var UserSchema = new Schema(
     lastname: { type: String, required: true },
     email: { type: String, unique: true, required: true },
     password: { type: String, required: true },
-    list: { type: [List] }
+    todo: { type: [Todo] }
   },
   { timestamps: true }
 );

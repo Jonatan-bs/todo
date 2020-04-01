@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import "./Create.css";
+import "./Editor.css";
 
-class TodoPopup extends Component {
+class TodoEditor extends Component {
   state = {
     todo: {
       title: "",
@@ -43,41 +43,38 @@ class TodoPopup extends Component {
   };
   updateTodo = () => {
     const todo = this.state.todo;
-    const listID = this.props.listID;
     const todoID = this.props.activeTodo._id;
     fetch("http://localhost:4000/todo/update", {
       method: "post",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ todo, listID, todoID })
+      body: JSON.stringify({ todo, todoID })
     })
       .then(res => res.json())
       .then(res => {
         console.log(res);
         if (res.success) {
-          // this.props.setTodos();
-          this.props.getLists();
+          this.props.setTodos(res.todo);
           this.props.todoPop(false)();
         }
       })
       .catch(err => console.log(err));
   };
   deleteTodo = () => {
-    const listID = this.props.listID;
     const todoID = this.props.activeTodo._id;
     fetch("http://localhost:4000/todo/delete", {
       method: "post",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ listID, todoID })
+      body: JSON.stringify({ todoID })
     })
       .then(res => res.json())
       .then(res => {
         console.log(res);
         if (res.success) {
-          this.props.setTodos();
+          this.props.setTodos(res.todo);
           this.props.todoPop(false)();
         }
       })
@@ -85,24 +82,25 @@ class TodoPopup extends Component {
   };
   addTodo = () => {
     const todo = this.state.todo;
-    const listID = this.props.listID;
     fetch("http://localhost:4000/todo/create", {
       method: "post",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ todo, listID })
+      body: JSON.stringify({ todo })
     })
       .then(res => res.json())
       .then(res => {
+        console.log(res);
+
         if (res.success) {
-          // this.props.setTodos();
-          this.props.getLists();
+          this.props.setTodos(res.todo);
           this.props.todoPop(false)();
         }
       })
       .catch(err => console.log(err));
   };
+
   render() {
     return (
       <React.Fragment>
@@ -218,4 +216,4 @@ class TodoPopup extends Component {
   }
 }
 
-export default TodoPopup;
+export default TodoEditor;

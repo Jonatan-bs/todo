@@ -1,5 +1,5 @@
 #todoUl {
-  width: 100%;
+  width: 90%;
   max-width: 650px;
   margin: 0 auto;
 }
@@ -15,6 +15,7 @@
   overflow: inherit;
   margin-bottom: 10px;
   cursor: pointer;
+  margin-left: 50px;
 }
 
 .done label {
@@ -74,4 +75,11 @@ button#addTodo {
   margin: 0 auto;
   display: block;
   margin-bottom: 30px;
+}
+
+.updateDate {
+  font-size: 14px;
+  text-align: right;
+  color: #939393;
+  margin: 4px;
 }

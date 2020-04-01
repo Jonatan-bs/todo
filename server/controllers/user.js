@@ -12,7 +12,7 @@ module.exports = {
         req.session.authenticated = true; // set session vars
         req.session.user_id = user._id; // set session vars
 
-        res.status(201).json({ message: "User was created" });
+        res.status(201).json({ auth: true });
       })
       .catch(err => res.status(500).json(err));
   },
@@ -25,9 +25,9 @@ module.exports = {
         lastname: verified.user.lastname,
         email: verified.user.email
       };
-      res.status(201).json(verified);
+      res.status(200).json({ auth: true, user: verified.user });
     } else {
-      res.status(500).json({ success: false });
+      res.status(500).json({ auth: false });
     }
   },
 
@@ -36,5 +36,20 @@ module.exports = {
       if (err) res.status(500);
       res.status(201).json({ message: "logged out" });
     });
+  },
+  auth: async (req, res, next) => {
+    // const user = await User.findOne({ _id: req.session.user_id });
+    let user = await User.find({}).limit(1);
+    user = user[0];
+
+    user = {
+      firstname: user.firstname,
+      lastname: user.lastname,
+      email: user.email,
+      todo: user.todo
+    };
+
+    if (user) res.status(200).json({ auth: true, user });
+    else res.status(200).json({ auth: false, user });
   }
 };

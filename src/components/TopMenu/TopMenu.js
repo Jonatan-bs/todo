@@ -19,6 +19,7 @@ class TopMenu extends Component {
   render = () => {
     return (
       <div id="topMenu">
+        <span>Hej {this.props.firstname} :)</span>
         <button id="logout" onClick={this.logout}>
           Log out
         </button>

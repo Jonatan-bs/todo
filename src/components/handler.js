@@ -17,5 +17,14 @@ export default {
           return array;
       }
     });
+  },
+
+  formatDate(date) {
+    if (!date) return "";
+    let dateObj = new Date(date);
+    var d = dateObj.getDate();
+    var m = dateObj.getMonth() + 1;
+    var y = dateObj.getFullYear();
+    return d + "/" + m + "/" + y;
   }
 };
