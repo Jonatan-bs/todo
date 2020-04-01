@@ -3,7 +3,7 @@ import "./Register.css";
 import { Link } from "react-router-dom";
 
 class Register extends Component {
-  state = { email: "", password: "", firstname: "", lastname: "" };
+  state = { email: "", password: "", firstname: "", lastname: "", message: "" };
 
   setValue = e => {
     const state = this.state;
@@ -13,6 +13,12 @@ class Register extends Component {
   };
 
   register = () => {
+    let popup = document.querySelector(".popup");
+    let inputs = popup.querySelectorAll("input");
+    for (const input of inputs) {
+      input.reportValidity();
+      if (!input.checkValidity()) return;
+    }
     fetch("http://localhost:4000/user/register", {
       method: "post",
       headers: {
@@ -27,11 +33,14 @@ class Register extends Component {
     })
       .then(res => res.json())
       .then(res => {
-        console.log(res);
-        this.props.updateState({
-          auth: true,
-          todos: res.user.todo
-        });
+        if (res.code === 11000) {
+          this.setState({ message: "User already exist" });
+        } else {
+          this.props.updateState({
+            auth: true,
+            todos: res.user.todo
+          });
+        }
       })
       .catch(err => console.log(err));
   };
@@ -39,6 +48,10 @@ class Register extends Component {
   render() {
     return (
       <div id="register" className="popup">
+        <div className={this.state.message ? "message active" : "message"}>
+          "User already exist"
+        </div>
+
         <h1>Register</h1>
         <label htmlFor="email">Email</label>
         <input
@@ -47,6 +60,7 @@ class Register extends Component {
           name="email"
           onChange={this.setValue}
           value={this.state.email}
+          required
         />
 
         <label htmlFor="firstname">firstname</label>
@@ -56,6 +70,7 @@ class Register extends Component {
           name="firstname"
           onChange={this.setValue}
           value={this.state.firstname}
+          required
         />
 
         <label htmlFor="lastname">lastname</label>
@@ -65,6 +80,7 @@ class Register extends Component {
           name="lastname"
           onChange={this.setValue}
           value={this.state.lastname}
+          required
         />
 
         <label htmlFor="password">password</label>
@@ -74,6 +90,7 @@ class Register extends Component {
           name="password"
           onChange={this.setValue}
           value={this.state.password}
+          required
         />
         <button onClick={this.register}>Register</button>
         <Link to="/login">

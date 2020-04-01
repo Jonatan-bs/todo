@@ -22,8 +22,8 @@ class App extends Component {
     fetch("http://localhost:4000/user/auth", { method: "post" })
       .then(res => res.json())
       .then(res => {
-        let auth = res.auth;
-        // let auth = false;
+        // let auth = res.auth;
+        let auth = false;
         let firstname = "";
         let todos = [];
         if (res.user) {

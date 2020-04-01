@@ -133,7 +133,23 @@ p.secondButton {
 .popup .field label {
   color: #9c9c9c;
 }
-
+.message {
+  max-height: 0px;
+  border: 2px dashed #b64c4c;
+  padding: 0px;
+  text-align: center;
+  opacity: 0;
+  overflow: hidden;
+  transition-property: opacity, max-height, padding;
+  transition-duration: 0.3s, 0.5s, 0.5s;
+  transition-delay: 0.2s, 0s, 0s;
+  transition-timing-function: ease;
+}
+.message.active {
+  opacity: 1;
+  padding: 5px;
+  max-height: 150px;
+}
 @keyframes popup {
   from {
     opacity: 0;

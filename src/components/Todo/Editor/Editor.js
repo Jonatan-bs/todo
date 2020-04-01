@@ -9,7 +9,8 @@ class TodoEditor extends Component {
       priority: 0,
       deadlineDate: "",
       deadlineTime: ""
-    }
+    },
+    message: ""
   };
 
   componentDidMount = () => {
@@ -81,6 +82,13 @@ class TodoEditor extends Component {
       .catch(err => console.log(err));
   };
   addTodo = () => {
+    let popup = document.querySelector(".popup");
+    let inputs = popup.querySelectorAll("input");
+    for (const input of inputs) {
+      input.reportValidity();
+      if (!input.checkValidity()) return;
+    }
+
     const todo = this.state.todo;
     fetch("http://localhost:4000/todo/create", {
       method: "post",
@@ -114,6 +122,7 @@ class TodoEditor extends Component {
               name="title"
               value={this.state.todo.title}
               onChange={this.getValue}
+              required
             />
           </div>
           <div className="field">

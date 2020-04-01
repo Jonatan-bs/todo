@@ -12,6 +12,13 @@ class login extends Component {
   };
 
   login = () => {
+    let popup = document.querySelector(".popup");
+    let inputs = popup.querySelectorAll("input");
+    for (const input of inputs) {
+      input.reportValidity();
+      if (!input.checkValidity()) return;
+    }
+
     fetch("http://localhost:4000/user/login", {
       method: "post",
       headers: {
@@ -31,7 +38,10 @@ class login extends Component {
             todos: res.user.todo
           });
         } else {
-          console.log("wrong password or username");
+          this.setState({ message: "wrong username or password" });
+          setTimeout(() => {
+            this.setState({ message: "" });
+          }, 2000);
         }
       })
       .catch(err => console.log(err));
@@ -40,6 +50,10 @@ class login extends Component {
   render() {
     return (
       <div id="login" className="popup">
+        <div className={this.state.message ? "message active" : "message"}>
+          "wrong username or password"
+        </div>
+
         <h2>Login</h2>
         <div className="field">
           <label htmlFor="email">Email</label>
@@ -62,7 +76,6 @@ class login extends Component {
           />
         </div>
         <button onClick={this.login}>Log in</button>
-
         <Link to="/register">
           <p className="secondButton">Register</p>
         </Link>
