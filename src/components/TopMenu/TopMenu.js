@@ -11,7 +11,6 @@ class TopMenu extends Component {
         res.json();
       })
       .then(res => {
-        console.log(res);
         this.props.setAuth(false);
       })
       .catch(err => console.log(err));
@@ -19,6 +18,21 @@ class TopMenu extends Component {
   render = () => {
     return (
       <div id="topMenu">
+        <div id="addTodoWrap">
+          <div id="addTodo">
+            <img
+              className="addButton"
+              src={require("./../../icons/x.svg")}
+              alt="Add todo"
+              onClick={this.props.todoPop("create")}
+            ></img>
+          </div>
+          {this.props.todos.length ? null : (
+            <div id="addFirst">
+              <img src={require("./arrow.svg")} alt="Add todo"></img>
+            </div>
+          )}
+        </div>
         <p id="logout" onClick={this.logout}>
           Log out
         </p>

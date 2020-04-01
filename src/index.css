@@ -95,6 +95,14 @@ input[type="password"]:active {
   width: 20%;
 }
 
+p.secondButton {
+  color: #3c5dbe;
+}
+#login input {
+  width: 100%;
+  margin-bottom: 50px;
+}
+
 .popup {
   background: #fff;
   position: fixed;
@@ -102,11 +110,28 @@ input[type="password"]:active {
   top: 50%;
   transform: translate(-50%, -50%);
   padding: 30px;
-  max-width: 500px;
-  margin: 0 50px;
-  width: 100%;
+  max-width: 530px;
+  box-sizing: border-box;
+  width: 90%;
   z-index: 50;
   animation: popup 0.2s ease-in-out;
+  border-radius: 10px;
+}
+.popup .field textarea {
+  border: 0;
+  background: #e7e7e7;
+  min-height: 90px;
+  width: 100%;
+  resize: vertical;
+}
+.popup .field {
+  padding: 10px 0;
+}
+.popup .field input {
+  width: 100%;
+}
+.popup .field label {
+  color: #9c9c9c;
 }
 
 @keyframes popup {

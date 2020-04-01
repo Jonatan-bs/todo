@@ -3,7 +3,6 @@ import React, { Component } from "react";
 import "./App.css";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
-import TopMenu from "./components/TopMenu/TopMenu";
 import Todo from "./components/Todo/Todo";
 import {
   BrowserRouter as Router,
@@ -24,6 +23,7 @@ class App extends Component {
       .then(res => res.json())
       .then(res => {
         let auth = res.auth;
+        // let auth = false;
         let firstname = "";
         let todos = [];
         if (res.user) {
@@ -39,12 +39,6 @@ class App extends Component {
   MainPage = () => {
     return (
       <React.Fragment>
-        <header>
-          <TopMenu
-            firstname={this.state.firstname}
-            setAuth={this.setAuth.bind(this)}
-          />
-        </header>
         <section>
           <Todo todos={this.state.todos} setTodos={this.setTodos.bind(this)} />
         </section>
@@ -85,7 +79,11 @@ class App extends Component {
             exact
             path="/register"
             render={() =>
-              this.state.auth ? <Redirect to="/" /> : <Register />
+              this.state.auth ? (
+                <Redirect to="/" />
+              ) : (
+                <Register updateState={this.updateState.bind(this)} />
+              )
             }
           />
 

@@ -119,6 +119,7 @@ class TodoEditor extends Component {
           <div className="field">
             <label htmlFor="todoDescription">Description</label>
             <textarea
+              className="editable"
               id="todoDescription"
               type="text"
               name="description"

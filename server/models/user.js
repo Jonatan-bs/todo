@@ -29,10 +29,13 @@ var UserSchema = new Schema(
 );
 
 UserSchema.pre("save", function(next) {
+  this.email = this.email ? this.email.toLowerCase() : null;
+
   if (!this.isModified("password")) {
     return next();
   }
   this.password = bcrypt.hashSync(this.password, 10);
+
   next();
 });
 

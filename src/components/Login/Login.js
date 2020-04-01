@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 class login extends Component {
   state = { email: "", password: "" };
@@ -38,24 +39,33 @@ class login extends Component {
 
   render() {
     return (
-      <div id="login">
-        <label htmlFor="email">Email</label>
-        <input
-          type="text"
-          id="email"
-          name="email"
-          onChange={this.setValue}
-          value={this.state.email}
-        />
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          onChange={this.setValue}
-          value={this.state.password}
-        />
+      <div id="login" className="popup">
+        <h2>Login</h2>
+        <div className="field">
+          <label htmlFor="email">Email</label>
+          <input
+            type="text"
+            id="email"
+            name="email"
+            onChange={this.setValue}
+            value={this.state.email}
+          />
+        </div>
+        <div className="field">
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            onChange={this.setValue}
+            value={this.state.password}
+          />
+        </div>
         <button onClick={this.login}>Log in</button>
+
+        <Link to="/register">
+          <p className="secondButton">Register</p>
+        </Link>
       </div>
     );
   }

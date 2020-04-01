@@ -72,6 +72,9 @@ module.exports = {
         todo.done = false;
       }
       todo.dropped = !todo.dropped;
+      if (todo.dropped) {
+        todo.done = false;
+      }
 
       await user.save();
       res.status(201).json({ success: true, todo: user.todo });

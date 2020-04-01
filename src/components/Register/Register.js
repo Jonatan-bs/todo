@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import "./Register.css";
+import { Link } from "react-router-dom";
+
 class Register extends Component {
   state = { email: "", password: "", firstname: "", lastname: "" };
 
@@ -26,6 +28,10 @@ class Register extends Component {
       .then(res => res.json())
       .then(res => {
         console.log(res);
+        this.props.updateState({
+          auth: true,
+          todos: res.user.todo
+        });
       })
       .catch(err => console.log(err));
   };
@@ -70,6 +76,9 @@ class Register extends Component {
           value={this.state.password}
         />
         <button onClick={this.register}>Register</button>
+        <Link to="/login">
+          <p className="secondButton">Login</p>
+        </Link>
       </div>
     );
   }
