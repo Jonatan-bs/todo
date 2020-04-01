@@ -63,7 +63,6 @@ class TodoEditor extends Component {
     })
       .then(res => res.json())
       .then(res => {
-        console.log(res);
         if (res.success) {
           this.props.setTodos(res.todo);
           this.props.todoPop(false)();

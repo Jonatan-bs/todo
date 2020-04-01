@@ -50,7 +50,7 @@ class login extends Component {
   render() {
     return (
       <React.Fragment>
-        <div class="overlay2"></div>
+        <div className="overlay2"></div>
 
         <div id="login" className="popup">
           <div className={this.state.message ? "message active" : "message"}>
