@@ -22,8 +22,8 @@ class App extends Component {
     fetch("http://localhost:4000/user/auth", { method: "post" })
       .then(res => res.json())
       .then(res => {
-        // let auth = res.auth;
-        let auth = false;
+        let auth = res.auth;
+        // let auth = false;
         let firstname = "";
         let todos = [];
         if (res.user) {
@@ -40,7 +40,11 @@ class App extends Component {
     return (
       <React.Fragment>
         <section>
-          <Todo todos={this.state.todos} setTodos={this.setTodos.bind(this)} />
+          <Todo
+            todos={this.state.todos}
+            setTodos={this.setTodos.bind(this)}
+            setAuth={this.setAuth}
+          />
         </section>
       </React.Fragment>
     );
@@ -54,7 +58,6 @@ class App extends Component {
   setTodos = newTodos => {
     handler.sort(newTodos, "updatedAt", "desc");
     handler.sort(newTodos, "done", "asc");
-    console.log("222", this);
     this.setState({ todos: newTodos });
   };
 

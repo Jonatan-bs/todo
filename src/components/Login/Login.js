@@ -51,7 +51,7 @@ class login extends Component {
     return (
       <div id="login" className="popup">
         <div className={this.state.message ? "message active" : "message"}>
-          "wrong username or password"
+          Wrong username or password
         </div>
 
         <h2>Login</h2>

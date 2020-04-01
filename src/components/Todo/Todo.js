@@ -138,7 +138,6 @@ class Todo extends Component {
     let active = todos.filter(x => x.done === false && x.dropped === false);
     let dropped = todos.filter(x => x.dropped);
     let done = todos.filter(x => x.done);
-
     this.setState({ todos, done, dropped, active });
   }
   componentDidUpdate = prevProps => {

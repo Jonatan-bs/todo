@@ -41,9 +41,9 @@ module.exports = {
     });
   },
   auth: async (req, res, next) => {
-    // let user = await User.findOne({ _id: req.session.user_id });
-    let user = await User.find({}).limit(1);
-    user = user[0];
+    let user = await User.findOne({ _id: req.session.user_id });
+    // let user = await User.find({}).limit(1);
+    // user = user[0];
     if (user)
       res.status(200).json({
         auth: true,

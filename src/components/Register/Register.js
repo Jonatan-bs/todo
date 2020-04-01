@@ -34,7 +34,10 @@ class Register extends Component {
       .then(res => res.json())
       .then(res => {
         if (res.code === 11000) {
-          this.setState({ message: "User already exist" });
+          this.setState({ message: "wrong username or password" });
+          setTimeout(() => {
+            this.setState({ message: "" });
+          }, 2000);
         } else {
           this.props.updateState({
             auth: true,
@@ -49,7 +52,7 @@ class Register extends Component {
     return (
       <div id="register" className="popup">
         <div className={this.state.message ? "message active" : "message"}>
-          "User already exist"
+          User already exist
         </div>
 
         <h1>Register</h1>

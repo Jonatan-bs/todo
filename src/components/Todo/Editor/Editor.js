@@ -18,6 +18,15 @@ class TodoEditor extends Component {
 
     let { activeTodo } = this.props;
 
+    if (activeTodo.deadlineDate) {
+      let dateObj = new Date(activeTodo.deadlineDate);
+      var d = ("0" + dateObj.getDate()).slice(-2);
+      var m = ("0" + (dateObj.getMonth() + 1)).slice(-2);
+
+      var y = dateObj.getFullYear();
+      activeTodo.deadlineDate = y + "-" + m + "-" + d;
+    }
+
     let todo = {
       title: activeTodo.title,
       description: activeTodo.description,

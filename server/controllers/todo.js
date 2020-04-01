@@ -12,9 +12,9 @@ module.exports = {
       todo.deadlineTime = req.body.todo.deadlineTime;
       todo.priority = req.body.todo.priority;
 
-      // const user = await User.findOne({ _id: req.session.user_id });
-      let user = await User.find({}).limit(1);
-      user = user[0];
+      const user = await User.findOne({ _id: req.session.user_id });
+      // let user = await User.find({}).limit(1);
+      // user = user[0];
 
       user.todo.push(todo);
 
@@ -43,10 +43,10 @@ module.exports = {
     const todoID = req.body.todoID;
 
     try {
-      // const user = await User.findOne({ _id: req.session.user_id });
+      const user = await User.findOne({ _id: req.session.user_id });
 
-      let user = await User.find({}).limit(1);
-      user = user[0];
+      // let user = await User.find({}).limit(1);
+      // user = user[0];
 
       const todo = user.todo.id(todoID);
 
@@ -62,10 +62,10 @@ module.exports = {
     const todoID = req.body.todoID;
     console.log("gfjhgfjgh");
     try {
-      // const user = await User.findOne({ _id: req.session.user_id });
+      const user = await User.findOne({ _id: req.session.user_id });
 
-      let user = await User.find({}).limit(1);
-      user = user[0];
+      // let user = await User.find({}).limit(1);
+      // user = user[0];
 
       const todo = user.todo.id(todoID);
       if (todo.dropped) {
@@ -87,10 +87,10 @@ module.exports = {
     const newTodo = req.body.todo;
 
     try {
-      // const user = await User.findOne({ _id: req.session.user_id });
+      const user = await User.findOne({ _id: req.session.user_id });
 
-      let user = await User.find({}).limit(1);
-      user = user[0];
+      // let user = await User.find({}).limit(1);
+      // user = user[0];
 
       const todo = user.todo.id(todoID);
 
@@ -110,10 +110,10 @@ module.exports = {
     const todoID = req.body.todoID;
 
     try {
-      // const user = await User.findOne({ _id: req.session.user_id });
+      const user = await User.findOne({ _id: req.session.user_id });
 
-      let user = await User.find({}).limit(1);
-      user = user[0];
+      // let user = await User.find({}).limit(1);
+      // user = user[0];
 
       user.todo.id(todoID).remove();
       await user.save();

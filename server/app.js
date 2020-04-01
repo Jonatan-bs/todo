@@ -37,7 +37,7 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname + "./../build/index.html"));
 });
 
-mongoose.connect("mongodb://localhost:27017/todo", {
+mongoose.connect("mongodb://localhost:27017/DB2do", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true
