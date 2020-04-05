@@ -4,40 +4,40 @@ import "./List.css";
 class List extends Component {
   deActivate = (listID, index) => {
     return () => {
-      fetch("http://localhost:4000/list/deactivate", {
+      fetch("http://localhost:3000/list/deactivate", {
         method: "post",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ listID })
+        body: JSON.stringify({ listID }),
       })
-        .then(res => res.json())
-        .then(res => {
+        .then((res) => res.json())
+        .then((res) => {
           if (this.props.activeListIndex === index) {
             this.props.setListActive(null)();
           }
           this.props.getLists();
         })
-        .catch(err => console.log(err));
+        .catch((err) => console.log(err));
     };
   };
 
-  addList = e => {
+  addList = (e) => {
     const newList = this.props.newList;
 
-    fetch("http://localhost:4000/list/create", {
+    fetch("http://localhost:3000/list/create", {
       method: "post",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({ title: newList })
+      body: JSON.stringify({ title: newList }),
     })
-      .then(res => res.json())
-      .then(res => {
+      .then((res) => res.json())
+      .then((res) => {
         this.props.getLists();
         this.setState({ newList: "" });
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   };
   render = () => {
     return (

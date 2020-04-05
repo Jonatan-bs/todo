@@ -4,16 +4,16 @@ import "./TopMenu.css";
 class TopMenu extends Component {
   state = {};
   logout = () => {
-    fetch("http://localhost:4000/user/logout", {
-      method: "post"
+    fetch("http://localhost:3000/user/logout", {
+      method: "post",
     })
-      .then(res => {
+      .then((res) => {
         res.json();
       })
-      .then(res => {
+      .then((res) => {
         this.props.setAuth(false);
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   };
   render = () => {
     return (

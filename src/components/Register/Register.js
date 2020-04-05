@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 class Register extends Component {
   state = { email: "", password: "", firstname: "", lastname: "", message: "" };
 
-  setValue = e => {
+  setValue = (e) => {
     const state = this.state;
     const name = e.target.name;
     state[name] = e.target.value;
@@ -19,20 +19,20 @@ class Register extends Component {
       input.reportValidity();
       if (!input.checkValidity()) return;
     }
-    fetch("http://localhost:4000/user/register", {
+    fetch("http://localhost:3000/user/register", {
       method: "post",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         email: this.state.email,
         password: this.state.password,
         firstname: this.state.firstname,
-        lastname: this.state.lastname
-      })
+        lastname: this.state.lastname,
+      }),
     })
-      .then(res => res.json())
-      .then(res => {
+      .then((res) => res.json())
+      .then((res) => {
         if (res.code === 11000) {
           this.setState({ message: "wrong username or password" });
           setTimeout(() => {
@@ -41,11 +41,11 @@ class Register extends Component {
         } else {
           this.props.updateState({
             auth: true,
-            todos: res.user.todo
+            todos: res.user.todo,
           });
         }
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   };
 
   render() {

@@ -93,64 +93,64 @@ class Todo extends Component {
     activeTodo: null,
     active: [],
     dropped: [],
-    done: []
+    done: [],
   };
 
-  doneEvent = todoID => {
-    return e => {
+  doneEvent = (todoID) => {
+    return (e) => {
       if (e.target !== e.currentTarget) return;
 
-      fetch("http://localhost:4000/todo/done", {
+      fetch("http://localhost:3000/todo/done", {
         method: "post",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ todoID })
+        body: JSON.stringify({ todoID }),
       })
-        .then(res => res.json())
-        .then(res => {
+        .then((res) => res.json())
+        .then((res) => {
           this.props.setTodos(res.todo);
         })
-        .catch(err => console.log(err));
+        .catch((err) => console.log(err));
     };
   };
 
-  dropEvent = todoID => {
-    return e => {
+  dropEvent = (todoID) => {
+    return (e) => {
       if (e.target !== e.currentTarget) return;
 
-      fetch("http://localhost:4000/todo/drop", {
+      fetch("http://localhost:3000/todo/drop", {
         method: "post",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ todoID })
+        body: JSON.stringify({ todoID }),
       })
-        .then(res => res.json())
-        .then(res => {
+        .then((res) => res.json())
+        .then((res) => {
           this.props.setTodos(res.todo);
         })
-        .catch(err => console.log(err));
+        .catch((err) => console.log(err));
     };
   };
   componentDidMount() {
     let { todos } = this.props;
-    let active = todos.filter(x => x.done === false && x.dropped === false);
-    let dropped = todos.filter(x => x.dropped);
-    let done = todos.filter(x => x.done);
+    let active = todos.filter((x) => x.done === false && x.dropped === false);
+    let dropped = todos.filter((x) => x.dropped);
+    let done = todos.filter((x) => x.done);
     this.setState({ todos, done, dropped, active });
   }
-  componentDidUpdate = prevProps => {
+  componentDidUpdate = (prevProps) => {
     if (prevProps === this.props) return;
     let { todos } = this.props;
-    let active = todos.filter(x => x.done === false && x.dropped === false);
-    let dropped = todos.filter(x => x.dropped);
-    let done = todos.filter(x => x.done);
+    let active = todos.filter((x) => x.done === false && x.dropped === false);
+    let dropped = todos.filter((x) => x.dropped);
+    let done = todos.filter((x) => x.done);
     this.setState({ todos, done, dropped, active });
   };
 
   todoPop = (show, todo) => {
-    return e => {
+    return (e) => {
       if (e && e.target.classList.contains("nopop")) return;
       // let activeTodo = todo ? todo : null;
       else this.setState({ todoPop: show, activeTodo: todo });

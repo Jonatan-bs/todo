@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 class login extends Component {
   state = { email: "", password: "" };
 
-  setValue = e => {
+  setValue = (e) => {
     const state = this.state;
     const name = e.target.name;
     state[name] = e.target.value;
@@ -19,23 +19,23 @@ class login extends Component {
       if (!input.checkValidity()) return;
     }
 
-    fetch("http://localhost:4000/user/login", {
+    fetch("http://localhost:3000/user/login", {
       method: "post",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         email: this.state.email,
-        password: this.state.password
-      })
+        password: this.state.password,
+      }),
     })
-      .then(res => res.json())
-      .then(res => {
+      .then((res) => res.json())
+      .then((res) => {
         if (res.auth) {
           this.props.updateState({
             auth: true,
             firstname: res.user.firstname,
-            todos: res.user.todo
+            todos: res.user.todo,
           });
         } else {
           this.setState({ message: "wrong username or password" });
@@ -44,7 +44,7 @@ class login extends Component {
           }, 2000);
         }
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   };
 
   render() {

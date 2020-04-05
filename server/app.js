@@ -26,7 +26,7 @@ app.use(
     secret: "aaahhhhh",
     resave: true,
     saveUninitialized: true,
-    secure: false
+    secure: false,
   })
 );
 
@@ -40,7 +40,7 @@ app.get("*", (req, res) => {
 mongoose.connect("mongodb://localhost:27017/DB2do", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  useCreateIndex: true
+  useCreateIndex: true,
 });
 
 module.exports = app;

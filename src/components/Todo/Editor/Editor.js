@@ -8,9 +8,9 @@ class TodoEditor extends Component {
       description: "",
       priority: 0,
       deadlineDate: "",
-      deadlineTime: ""
+      deadlineTime: "",
     },
-    message: ""
+    message: "",
   };
 
   componentDidMount = () => {
@@ -32,12 +32,12 @@ class TodoEditor extends Component {
       description: activeTodo.description,
       priority: activeTodo.priority,
       deadlineDate: activeTodo.deadlineDate ? activeTodo.deadlineDate : "",
-      deadlineTime: activeTodo.deadlineTime
+      deadlineTime: activeTodo.deadlineTime,
     };
     this.setState({ todo });
   };
 
-  getValue = e => {
+  getValue = (e) => {
     const todo = { ...this.state.todo };
     const val = e.target.value;
     const name = e.target.name;
@@ -45,7 +45,7 @@ class TodoEditor extends Component {
     this.setState({ todo });
   };
 
-  setValPrio = e => {
+  setValPrio = (e) => {
     const todo = { ...this.state.todo };
     const value = e.target.value;
     todo.priority = Number(value);
@@ -54,40 +54,40 @@ class TodoEditor extends Component {
   updateTodo = () => {
     const todo = this.state.todo;
     const todoID = this.props.activeTodo._id;
-    fetch("http://localhost:4000/todo/update", {
+    fetch("http://localhost:3000/todo/update", {
       method: "post",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({ todo, todoID })
+      body: JSON.stringify({ todo, todoID }),
     })
-      .then(res => res.json())
-      .then(res => {
+      .then((res) => res.json())
+      .then((res) => {
         if (res.success) {
           this.props.setTodos(res.todo);
           this.props.todoPop(false)();
         }
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   };
   deleteTodo = () => {
     const todoID = this.props.activeTodo._id;
-    fetch("http://localhost:4000/todo/delete", {
+    fetch("http://localhost:3000/todo/delete", {
       method: "post",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({ todoID })
+      body: JSON.stringify({ todoID }),
     })
-      .then(res => res.json())
-      .then(res => {
+      .then((res) => res.json())
+      .then((res) => {
         console.log(res);
         if (res.success) {
           this.props.setTodos(res.todo);
           this.props.todoPop(false)();
         }
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   };
   addTodo = () => {
     let popup = document.querySelector(".popup");
@@ -98,15 +98,15 @@ class TodoEditor extends Component {
     }
 
     const todo = this.state.todo;
-    fetch("http://localhost:4000/todo/create", {
+    fetch("http://localhost:3000/todo/create", {
       method: "post",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({ todo })
+      body: JSON.stringify({ todo }),
     })
-      .then(res => res.json())
-      .then(res => {
+      .then((res) => res.json())
+      .then((res) => {
         console.log(res);
 
         if (res.success) {
@@ -114,7 +114,7 @@ class TodoEditor extends Component {
           this.props.todoPop(false)();
         }
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   };
 
   render() {

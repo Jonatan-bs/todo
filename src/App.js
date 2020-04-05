@@ -8,20 +8,20 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect
+  Redirect,
 } from "react-router-dom";
 import handler from "./components/handler";
 
 class App extends Component {
   state = { auth: "notset" };
 
-  setAuth = state => {
+  setAuth = (state) => {
     this.setState({ auth: state, todos: [], firstname: "" });
   };
   componentDidMount() {
-    fetch("http://localhost:4000/user/auth", { method: "post" })
-      .then(res => res.json())
-      .then(res => {
+    fetch("http://localhost:3000/user/auth", { method: "post" })
+      .then((res) => res.json())
+      .then((res) => {
         let auth = res.auth;
         // let auth = false;
         let firstname = "";
@@ -33,7 +33,7 @@ class App extends Component {
 
         this.setState({ auth, firstname, todos });
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   }
 
   MainPage = () => {
@@ -49,13 +49,13 @@ class App extends Component {
       </React.Fragment>
     );
   };
-  setName = firstname => {
+  setName = (firstname) => {
     this.setState({ firstname: firstname });
   };
-  updateState = obj => {
+  updateState = (obj) => {
     this.setState(obj);
   };
-  setTodos = newTodos => {
+  setTodos = (newTodos) => {
     handler.sort(newTodos, "updatedAt", "desc");
     handler.sort(newTodos, "done", "asc");
     this.setState({ todos: newTodos });
