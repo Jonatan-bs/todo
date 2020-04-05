@@ -29,6 +29,9 @@ class App extends Component {
         if (res.user) {
           firstname = res.user.firstname;
           todos = res.user.todo;
+
+          handler.sort(todos, "updatedAt", "desc");
+          handler.sort(todos, "done", "asc");
         }
 
         this.setState({ auth, firstname, todos });

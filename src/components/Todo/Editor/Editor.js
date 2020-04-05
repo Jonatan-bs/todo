@@ -52,6 +52,13 @@ class TodoEditor extends Component {
     this.setState({ todo });
   };
   updateTodo = () => {
+    let popup = document.querySelector(".popup");
+    let inputs = popup.querySelectorAll("input");
+    for (const input of inputs) {
+      input.reportValidity();
+      if (!input.checkValidity()) return;
+    }
+
     const todo = this.state.todo;
     const todoID = this.props.activeTodo._id;
     fetch("http://localhost:3000/todo/update", {
