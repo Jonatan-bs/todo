@@ -34,7 +34,9 @@ class Register extends Component {
       .then((res) => res.json())
       .then((res) => {
         if (res.code === 11000) {
-          this.setState({ message: "wrong username or password" });
+          this.setState({
+            message: "User already exist",
+          });
           setTimeout(() => {
             this.setState({ message: "" });
           }, 2000);
